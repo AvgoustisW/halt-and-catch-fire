@@ -2,8 +2,10 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+/*----------------------------------------------------------------*/
+import { connectToSampleDatabase } from '../lib/mongodb'
 
-const Home: NextPage = () => {
+const Home = ({isConnected}: any) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -17,6 +19,16 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
+
+        {isConnected ? (
+          <h2>You are connected to MongoDB</h2>
+        ) : (
+          <h2>
+            You are NOT connected to MongoDB. Check the <code>README.md</code>{' '}
+            for instructions.
+          </h2>
+        )}
+        
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
@@ -70,3 +82,13 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+
+export async function getServerSideProps(/*context*/) {
+  const { client } = await connectToSampleDatabase()
+  const isConnected = client.topology.s.state;
+
+  return {
+    props: { isConnected },
+  }
+}
