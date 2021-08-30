@@ -13,6 +13,6 @@ import {fixUnserialized} from '../../tools/general';
 export async function getAllSampleData(){  
   if (!mongoose.connection.readyState) await mongoose.connect(MONGODB_URI_SAMPLE);
   if (!mongoose.models.Movies) mongoose.model('Movies', moviesSchema);
-  const data = await mongoose.model('movies').findById('573a1390f29313caabcd4135').lean();
-  return fixUnserialized(data); //https://github.com/vercel/next.js/issues/11993
+  const data = await mongoose.model('Movies').findById('573a1390f29313caabcd4135').lean();
+  return fixUnserialized(data); //https://github.com/vercel/next.js/issues/11993 
 }
