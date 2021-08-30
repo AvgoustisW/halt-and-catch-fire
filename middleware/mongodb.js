@@ -19,19 +19,15 @@ if (!MONGODB_DB) {
 }
 
 
-const db = handler => async (req, res) => {
-  if (mongoose.connections[0].readyState) {
-    // Use current db connection
-    return handler(req, res);
-  }
-  // Use new db connection
-  await mongoose.connect(MONGODB_URI_SAMPLE, {
+async function dbConnect() {
+  mongoose.disconnect();
+  await mongoose.connect(process.env.MONGODB_URI_SAMPLE, {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true,
     useNewUrlParser: true
-  });
-  return handler(req, res);
-};
+  })
+}
 
-export default db;
+
+export default dbConnect;

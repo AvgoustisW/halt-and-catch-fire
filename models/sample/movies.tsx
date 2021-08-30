@@ -82,4 +82,4 @@ const moviesSchema = new mongoose.Schema({
   
   }, {collection: 'movies'});
 
-  export default moviesSchema;
+  export default moviesSchema
