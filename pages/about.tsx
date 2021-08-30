@@ -3,8 +3,6 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 /*----------------------------------------------------------------*/
-import { connectToSampleDatabase } from '../lib/mongodb'
-
 const About = ({isConnected}: any) => {
   return (
     <Layout>
@@ -30,9 +28,8 @@ export default About
 
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { client } = await connectToSampleDatabase()
-  const isConnected = client.topology.s.state;
+ 
   return {
-    props: { isConnected },
+    props: { isConnected: 't' },
   }
 }
