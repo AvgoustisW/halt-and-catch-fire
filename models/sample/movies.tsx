@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const moviesSchema = new mongoose.Schema({
+const MoviesSchema = new mongoose.Schema({
     plot:{
         type:String
     } ,
@@ -82,4 +82,5 @@ const moviesSchema = new mongoose.Schema({
   
   }, {collection: 'movies'});
 
-  export default moviesSchema
+
+  export default mongoose.models.Movies || mongoose.model('Movies', MoviesSchema);

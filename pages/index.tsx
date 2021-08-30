@@ -4,11 +4,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 /*----------------------------------------------------------------*/
-import connectDB from '../middleware/mongodb';
+
+import {fixUnserialized} from '../tools/general';
+import dbConnect from '../lib/mongodb';
+import movies from '../models/sample/movies';
 
 import Layout from '../components/layout'
 
-import { getAllSampleData } from './api/sample_data'
 
 const Home = (props: any) => {
 
@@ -66,10 +68,11 @@ export default Home
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  //const data = await getAllMovieSampleData(); 
+  await dbConnect();
+  const data = await movies.findById('573a1390f29313caabcd42e8').lean();
 
-  const data = await getAllSampleData();
- 
   return {
-    props: {status: 't', data},
+    props: {status: 't', data: fixUnserialized(data)}, //https://github.com/vercel/next.js/issues/11993 
   }
 }
