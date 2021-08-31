@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.css'
 
 import {fixUnserialized} from '../tools/general';
 import dbConnect from '../lib/mongodb';
-import movies from '../models/sample/movies';
+import swords from '../models/swords';
 
 import Layout from '../components/layout'
 
@@ -22,7 +22,7 @@ const Home = (props: any) => {
         Home Page
         </h1>
        
-       {console.log(props)}
+        {console.log(props)}
         {props.status ? (
           <h2>You are connected to MongoDB</h2>
         ) : (
@@ -70,8 +70,8 @@ export default Home
 export const getServerSideProps: GetServerSideProps = async (context) => {
   //const data = await getAllMovieSampleData(); 
   await dbConnect();
-  const data = await movies.findById('573a1390f29313caabcd42e8').lean();
-
+  const data = await swords.findOne();
+  
   return {
     props: {status: 't', data: fixUnserialized(data)}, //https://github.com/vercel/next.js/issues/11993 
   }
