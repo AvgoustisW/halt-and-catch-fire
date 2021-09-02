@@ -7,7 +7,7 @@ import Layout from '../components/layout'
 
 
 const login = async () => {
-    const authResponse = await fetch('http://localhost:3000/api/auth/login', {
+    const authResponse = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -25,7 +25,7 @@ const login = async () => {
 }
 
 const logout = async () => {
-    const authResponse = await fetch('http://localhost:3000/api/auth/logout', {
+    const authResponse = await fetch('/api/auth/logout', {
         method: 'POST',
     })
     const res = await authResponse.json();
