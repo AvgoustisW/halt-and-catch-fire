@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cookie": "^0.4.1",
+    "cookie-cutter": "^0.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.0",
     "mongoose": "^6.0.2",

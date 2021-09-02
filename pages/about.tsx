@@ -1,24 +1,16 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type { NextPage, GetStaticProps, GetServerSideProps } from 'next'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
+import requireAuthentication from '../components/hoc/requireAuthentication'
 /*----------------------------------------------------------------*/
-const About = ({isConnected}: any) => {
+const About = ({props}: any) => {
   return (
     <Layout>
-    <div className={styles.container}>
-      <h1 className={styles.title}>
-        About Page
+      <div className={styles.container}>
+        <h1 className={styles.title}>
+          About Page
       </h1>
-      {isConnected ? (
-        <h2>You are connected to MongoDB</h2>
-      ) : (
-        <h2>
-          You are NOT connected to MongoDB. Check the <code>README.md</code>{' '}
-          for instructions.
-        </h2>
-      )}
-      
     </div>
     </Layout>
   )
@@ -27,9 +19,8 @@ const About = ({isConnected}: any) => {
 export default About
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
- 
+export const getServerSideProps: GetServerSideProps = requireAuthentication (async (context) => {
   return {
-    props: { isConnected: 't' },
+    props: {},
   }
-}
+})
