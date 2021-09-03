@@ -9,6 +9,9 @@ import { useRouter } from 'next/router'
 const Login = (props: any) => {
     
     const login = async (e) => {
+        setLoginStatus('');
+        e.preventDefault();
+
         const authResponse = await fetch('/api/auth/login', {
             method: 'POST',
             headers: {
@@ -19,18 +22,16 @@ const Login = (props: any) => {
                 "name": username,   
                 "password": password
             })
-            })
+        })
         const res = await authResponse.status;
         if(res === 200){
             setLoginStatus('');
             router.push('/')
         } else {
             setLoginStatus('Unauthorized');
+            setPassword('');
         }
-        
-
     }
-
 
     const [loginStatus, setLoginStatus ] = useState('');
     const [username, setUsername] = useState('')
@@ -54,6 +55,7 @@ const Login = (props: any) => {
                     onChange={handleUsername(setUsername)}
                     placeholder='username'
                     aria-label='username'
+                    required
                 />
                 <input
                     type='password'
@@ -62,12 +64,14 @@ const Login = (props: any) => {
                     onChange={handlePassword(setPassword)}
                     placeholder='password'
                     aria-label='password'
+                    required
                 />
-            </form>
-
-            <button type="button" onClick={login}>
+                
+            <button type="submit" >
                 Login
             </button>
+            </form>
+
             <p>{loginStatus}</p>  
         </div>
         </Layout>
