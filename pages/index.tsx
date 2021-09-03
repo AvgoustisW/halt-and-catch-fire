@@ -4,7 +4,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 /*----------------------------------------------------------------*/
-
+import { useRouter } from 'next/router';
+import { logout } from '../services/authorization';
 import {fixUnserialized} from '../tools/general';
 import dbConnect from '../lib/mongodb';
 import swords from '../models/swords';
@@ -14,11 +15,15 @@ import { apiResolver } from 'next/dist/server/api-utils'
 
 import requireAuthentication from '../components/hoc/requireAuthentication';
 
+
 const Home = (props: any) => {
 
-
+  const router =  useRouter();
   return (
     <Layout>
+       <button type="button" onClick={e => logout(e, router)}>
+                Logout
+            </button>   
       <div className={styles.container}>
         <h1 className={styles.title}>
         Home Page

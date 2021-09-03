@@ -4,37 +4,41 @@ import styles from '../styles/Home.module.css'
 import { useState } from 'react';
 /*----------------------------------------------------------------*/
 import Layout from '../components/layout'
-
-
-const login = async () => {
-    const authResponse = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "name": "Leonard",
-            "email": "leo.kawhi@gmail.com",
-            "password": "123"
-        })
-        })
-    const res = await authResponse.json();
-    console.log(res);
-
-}
-
-const logout = async () => {
-    const authResponse = await fetch('/api/auth/logout', {
-        method: 'POST',
-    })
-    const res = await authResponse.json();
-    console.log(res);
-}
-
+import { useRouter } from 'next/router'
 
 const Login = (props: any) => {
-    const [status, setStatus ] = useState(0);
+    
+    const login = async (e) => {
+        const authResponse = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "name": username,   
+                "password": password
+            })
+            })
+        const res = await authResponse.status;
+        if(res === 200){
+            setLoginStatus('');
+            router.push('/')
+        } else {
+            setLoginStatus('Unauthorized');
+        }
+        
+
+    }
+
+
+    const [loginStatus, setLoginStatus ] = useState('');
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const router = useRouter();
+
+    const handleUsername = setValue => e => setValue(e.target.value)
+    const handlePassword = setValue => e => setValue(e.target.value)
 
     return (
         <Layout>
@@ -42,12 +46,29 @@ const Login = (props: any) => {
             <h1 className={styles.title}>
                 Login Page
             </h1>
+            <form onSubmit={login}>
+                <input
+                    type='text'
+                    name='username'
+                    value={username}
+                    onChange={handleUsername(setUsername)}
+                    placeholder='username'
+                    aria-label='username'
+                />
+                <input
+                    type='password'
+                    name='password'
+                    value={password}
+                    onChange={handlePassword(setPassword)}
+                    placeholder='password'
+                    aria-label='password'
+                />
+            </form>
+
             <button type="button" onClick={login}>
                 Login
             </button>
-            <button type="button" onClick={logout}>
-                Logout
-            </button>        
+            <p>{loginStatus}</p>  
         </div>
         </Layout>
     )
