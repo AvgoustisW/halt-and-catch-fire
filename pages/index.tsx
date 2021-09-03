@@ -2,7 +2,6 @@ import type { NextPage, GetStaticProps, GetServerSideProps} from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 /*----------------------------------------------------------------*/
 import { useRouter } from 'next/router';
 import { logout } from '../services/authorization';
@@ -24,8 +23,8 @@ const Home = (props: any) => {
        <button type="button" onClick={e => logout(e, router)}>
                 Logout
             </button>   
-      <div className={styles.container}>
-        <h1 className={styles.title}>
+      <div >
+        <h1 >
         Home Page
         </h1>
        
@@ -39,31 +38,13 @@ const Home = (props: any) => {
           </h2>
         )}
 
-        <div className={styles.grid}>
+        <div >
           <Link href="/about">
-            <a className={styles.card}>
+            <a>
               <h2>About &rarr;</h2>
-              <p>Aye Aye </p>
             </a>     
           </Link>
-          <Link href="/about">
-            <a className={styles.card}>
-              <h2>About &rarr;</h2>
-              <p>Aye Aye </p>
-            </a>     
-          </Link>
-          <Link href="/about">
-            <a className={styles.card}>
-              <h2>About &rarr;</h2>
-              <p>Aye Aye</p>
-            </a>     
-          </Link>
-          <Link href="/about">
-            <a className={styles.card}>
-              <h2>About &rarr;</h2>
-              <p>Aye Aye </p>
-            </a>     
-          </Link>
+          
         </div>
           
       </div>
