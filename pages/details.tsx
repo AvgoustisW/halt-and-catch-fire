@@ -1,13 +1,12 @@
 import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import Layout from '../components/layout'
 /*----------------------------------------------------------------*/
 const Details = ({isConnected}: any) => {
   return (
     <Layout>
-      <div className={styles.container}>
+      <div className="">
       
         <Head>
           <title>HCF</title>
@@ -16,7 +15,7 @@ const Details = ({isConnected}: any) => {
         </Head>
 
       
-        <h1 className={styles.title}>
+        <h1 className="">
           Details Page
         </h1>
 
