@@ -12,7 +12,6 @@ export default async function login(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await dbConnect();
 
   if (req.method === 'POST') {
     await dbConnect();

@@ -28,7 +28,6 @@ const Home = (props: any) => {
         Home Page
         </h1>
        
-        {console.log(props)}
         {props.status ? (
           <h2>You are connected to MongoDB</h2>
         ) : (
