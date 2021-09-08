@@ -12,7 +12,7 @@ import swords from '../models/swords';
 import {fixUnserialized} from '../tools/general';
 import { useRouter } from 'next/router';
 /*----------------------------------------------------------------*/
-const About = ({props}: any) => {
+const Crud = ({props}: any) => {
   const headers = ['Name', 'Material', 'Type', 'Quality', '',''];
   const rows = props.map(e => { return { name: e.name, material: e.material, type: e.type, quality: e.quality, id: e._id}})
   const router = useRouter();
@@ -59,9 +59,6 @@ const About = ({props}: any) => {
 
 
   const editRecord = async (id, name, material, type, quality) => {
-    // setLoading(true);
-    // setLoginStatus(0);
-    console.log(id);
     const response = await fetch('/api/swords', {
         method: 'PUT',
         headers: {
@@ -104,7 +101,7 @@ const About = ({props}: any) => {
   )  
 }
 
-export default About
+export default Crud
 
 
 export const getServerSideProps: GetServerSideProps = requireAuthentication (async (context) => {

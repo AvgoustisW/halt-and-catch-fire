@@ -38,9 +38,9 @@ const Home = (props: any) => {
         )}
 
         <div >
-          <Link href="/about">
+          <Link href="/crud">
             <a>
-              <h2>About &rarr;</h2>
+              <h2>Crud Operations &rarr;</h2>
             </a>     
           </Link>
           

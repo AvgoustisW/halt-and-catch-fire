@@ -129,7 +129,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
     return ( 
         <>
          
-          <Table size="lg" variant="striped" colorScheme="green" >
+          <Table size="md" variant="striped" colorScheme="green" >
           <TableCaption placement="top">Famous Swords</TableCaption>
           <Thead>          
             <Tr>               
