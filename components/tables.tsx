@@ -11,7 +11,8 @@ import {
     Flex,
     FormControl,
     FormLabel,
-    Input
+    Input,
+    Select
   } from "@chakra-ui/react"
 
 
@@ -53,6 +54,17 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
     const [type, setType] = useState('')
     const [quality, setQuality] = useState('')
 
+    const { materials, types, qualities } =  selectionData();
+
+    const resetToOriginal = (
+        () => {
+        setName('');
+        setMaterial('Steel');
+        setType('Longsword');
+        setQuality('Strong 50');
+        }
+    )
+
     const resetAll = (
         () => {
         setName('');
@@ -71,12 +83,12 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
 
 
     const handleName = setValue => e => setValue(e.target.value)
-    const handleType = setValue => e => setValue(e.target.value)
+    const handleType = setValue => e => {setValue(e.target.value) }
     const handleQuality = setValue => e => setValue(e.target.value)
     const handleMaterial = setValue => e => setValue(e.target.value)
 
     const formBody = <> 
-    <FormControl>
+     <FormControl mb={4} mt={4}>
         <FormLabel>Name</FormLabel>
         <Input 
             placeholder="Slasher" 
@@ -88,48 +100,30 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
             isRequired={true}
         />
     </FormControl>
-    <FormControl>
+    <FormControl mb={4} mt={4}>
         <FormLabel>Material</FormLabel>
-        <Input 
-            placeholder="Iron" 
-            variant="flushed" 
-            mb={3} 
-            type="text" 
-            value={material}
-            onChange={handleMaterial(setMaterial)}
-            isRequired={true}
-        />
+        <Select variant ="flushed" onChange={handleMaterial(setMaterial)}>
+            {materials.map( mat => <option selected={mat === material} value={mat}>{mat}</option>)}
+        </Select>
     </FormControl>
-    <FormControl>
+    <FormControl mb={4} mt={4}>
         <FormLabel>Type</FormLabel>
-        <Input 
-            placeholder="longsword" 
-            variant="flushed" 
-            mb={3} 
-            type="text" 
-            value={type}
-            onChange={handleType(setType)}
-            isRequired={true}
-        />
+        <Select  variant ="flushed" onChange={handleType(setType)}>
+            {types.map( tp => <option selected={tp === type} value={tp}>{tp}</option>)}
+        </Select>
     </FormControl>
-    <FormControl>
+    <FormControl mb={4} mt={4}>
         <FormLabel>Quality</FormLabel>
-        <Input 
-            placeholder="Famed 12" 
-            variant="flushed" 
-            mb={3} 
-            type="text" 
-            value={quality}
-            onChange={handleQuality(setQuality)}
-            isRequired={true}
-        />
+        <Select  variant ="flushed" onChange={handleQuality(setQuality)}>
+            {qualities.map( q => <option selected={q === quality} value={q}>{q}</option>)}
+        </Select>
     </FormControl>
     
 </>
     return ( 
         <>
          
-          <Table size="md" variant="striped" colorScheme="green" >
+          <Table size="sm" variant="striped" colorScheme="green" >
           <TableCaption placement="top">Famous Swords</TableCaption>
           <Thead>          
             <Tr>               
@@ -138,10 +132,11 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
             <Tr><Td><BasicIconModal data={{
             icon: <BiPlus/>,
             iconLabel: 'Create',
+            buttonVariant: 'outline',
             title: "Create new sword", 
             body: formBody,
-            initFunc: () => resetAll(),
-            funcToRun: () => {  resetAll(); createFunc(name, material, type, quality) }
+            initFunc: () => resetToOriginal(),
+            funcToRun: () => {  resetToOriginal(); createFunc(name, material, type, quality) }
          }}
         />
                 </Td></Tr>
@@ -156,6 +151,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
                 <Td>{row.quality}</Td>               
                 <Td>
                     <BasicIconModal data={{
+                        buttonVariant: 'ghost',
                         icon: <BiEdit/>,
                         iconLabel: 'Edit',
                         title: "Edit sword", 
@@ -164,16 +160,16 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
                         funcToRun: () => {editFunc(row.id, name, material, type, quality) }
                     }}
                     />
-                </Td>
-                <Td><IconButton 
-                    m={4}
+                    <IconButton 
+                    ml={5}
                     aria-label="Delete" 
                     icon={<BiTrash/>}
-                    variant="outline"
+                    variant="ghost"
                     fontSize="22px"
                     onClick={() => {deleteFunc(row.id)}}
                     />  
                 </Td>
+                
               </Tr>
               )
             }
@@ -185,4 +181,12 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
     </Table>
     </>
     )
+}
+
+
+const selectionData = () => {
+    const materials = [ "Steel","Iron","Reinforced Steel","Glass","Obsidian",   "Blessed Steel"];
+    const types = [ "Longsword","Shortsword","Greatsword","Dagger","Warglaive","Axe","Spear"];
+    const qualities = [ "Strong 50","Rare 24","Famed 12","Wicked 4"];
+    return { materials, types, qualities } ;
 }

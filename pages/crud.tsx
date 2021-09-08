@@ -81,8 +81,7 @@ const Crud = ({props}: any) => {
 
   return (
     <Layout>
-      <Flex height='50vh'  justifyContent='center'>
-        <Flex direction='column' alignItems="center" p={12} rounded={5}>
+     
         <EditableTable 
           headers={headers} 
           rows={rows}
@@ -95,8 +94,7 @@ const Crud = ({props}: any) => {
                   <h2>Home &rarr;</h2>
                 </a>     
           </Link>  
-        </Flex>
-      </Flex>
+      
     </Layout>
   )  
 }

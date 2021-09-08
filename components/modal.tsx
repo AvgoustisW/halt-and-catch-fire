@@ -11,17 +11,18 @@ import {
   } from "@chakra-ui/react"
 
 import { useDisclosure } from "@chakra-ui/hooks"
-  
+import { useEffect } from 'react';
+
 export function BasicIconModal({data}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
+
 
     return (
       <>        
         <IconButton 
-                    m={4}
                     aria-label={data.iconLabel} 
                     icon={data.icon}
-                    variant="outline"
+                    variant={data.buttonVariant}
                     fontSize="22px"
                     onClick={() => { data.initFunc(); onOpen()}}
         />
