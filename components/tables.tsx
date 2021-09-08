@@ -17,8 +17,8 @@ import {
 
 import { BiTrash, BiEdit, BiPlus } from 'react-icons/bi';
 
-import { BasicModal } from '../components/modal';
-
+import { BasicIconModal } from '../components/modal';
+import {useState} from 'react';
 
 export function SimpleTable ({header: headers, rows}){
   
@@ -48,6 +48,84 @@ export function SimpleTable ({header: headers, rows}){
 
 export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}){
   
+    const [name, setName] = useState('')
+    const [material, setMaterial] = useState('')
+    const [type, setType] = useState('')
+    const [quality, setQuality] = useState('')
+
+    const resetAll = (
+        () => {
+        setName('');
+        setMaterial('');
+        setType('');
+        setQuality('');
+        }
+    )
+
+    const setEditingSword = (name, material, type, quality) => {
+        setName(name);
+        setMaterial(material);
+        setType(type);
+        setQuality(quality);
+    }
+
+
+    const handleName = setValue => e => setValue(e.target.value)
+    const handleType = setValue => e => setValue(e.target.value)
+    const handleQuality = setValue => e => setValue(e.target.value)
+    const handleMaterial = setValue => e => setValue(e.target.value)
+
+    const formBody = <> 
+    <FormControl>
+        <FormLabel>Name</FormLabel>
+        <Input 
+            placeholder="Slasher" 
+            variant="flushed" 
+            mb={3} 
+            type="text" 
+            value={name}
+            onChange={handleName(setName)}
+            isRequired={true}
+        />
+    </FormControl>
+    <FormControl>
+        <FormLabel>Material</FormLabel>
+        <Input 
+            placeholder="Iron" 
+            variant="flushed" 
+            mb={3} 
+            type="text" 
+            value={material}
+            onChange={handleMaterial(setMaterial)}
+            isRequired={true}
+        />
+    </FormControl>
+    <FormControl>
+        <FormLabel>Type</FormLabel>
+        <Input 
+            placeholder="longsword" 
+            variant="flushed" 
+            mb={3} 
+            type="text" 
+            value={type}
+            onChange={handleType(setType)}
+            isRequired={true}
+        />
+    </FormControl>
+    <FormControl>
+        <FormLabel>Quality</FormLabel>
+        <Input 
+            placeholder="Famed 12" 
+            variant="flushed" 
+            mb={3} 
+            type="text" 
+            value={quality}
+            onChange={handleQuality(setQuality)}
+            isRequired={true}
+        />
+    </FormControl>
+    
+</>
     return ( 
         <>
          
@@ -57,29 +135,13 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
             <Tr>               
                 {headers.map( h => <Th>{h}</Th>)}   
             </Tr>
-            <Tr><Td><BasicModal data={{
+            <Tr><Td><BasicIconModal data={{
             icon: <BiPlus/>,
             iconLabel: 'Create',
             title: "Create new sword", 
-            body: <> 
-                <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Input placeholder="Slasher" />
-                </FormControl>
-                <FormControl mt={4}>
-                <FormLabel>Material</FormLabel>
-                <Input placeholder="Steel" />
-                </FormControl>
-                <FormControl mt={4}>
-                <FormLabel>Type</FormLabel>
-                <Input placeholder="Longsword" />
-                </FormControl>
-                <FormControl mt={4}>
-                <FormLabel>Quality</FormLabel>
-                <Input placeholder="Famed 12" />
-                </FormControl>
-            </>,
-            funcToRun: createFunc
+            body: formBody,
+            initFunc: () => resetAll(),
+            funcToRun: () => {  resetAll(); createFunc(name, material, type, quality) }
          }}
         />
                 </Td></Tr>
@@ -92,14 +154,16 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
                 <Td>{row.material}</Td>
                 <Td>{row.type}</Td>
                 <Td>{row.quality}</Td>               
-                <Td><IconButton 
-                    m={4}
-                    aria-label="Edit" 
-                    icon={<BiEdit/>}
-                    variant="outline"
-                    fontSize="22px"
-                    onClick={() => {editFunc(row.id)}}
-                    />  
+                <Td>
+                    <BasicIconModal data={{
+                        icon: <BiEdit/>,
+                        iconLabel: 'Edit',
+                        title: "Edit sword", 
+                        body: formBody,
+                        initFunc: () => setEditingSword(row.name,row.material,row.type,row.quality),
+                        funcToRun: () => {editFunc(row.id, name, material, type, quality) }
+                    }}
+                    />
                 </Td>
                 <Td><IconButton 
                     m={4}

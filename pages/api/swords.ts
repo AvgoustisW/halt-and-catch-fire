@@ -8,6 +8,7 @@ import cookie from 'cookie';
 import { BiBody } from 'react-icons/bi';
 import { requiredChakraThemeKeys } from '@chakra-ui/theme';
 
+import { ObjectId } from 'mongoose';
 const secret = process.env.JWT_SECRET
 
 export default async function swords(
@@ -24,7 +25,7 @@ export default async function swords(
         function (err, doc) { // callback
             if (err) {
                 console.log(err);
-                res.status(500).json({message:'Database Errorzzz'});
+                res.status(500).json({message:'Database Error'});
             } else {
                 console.log('Sword Created');
                 res.status(200).json({message: 'Sword created'});
@@ -32,9 +33,11 @@ export default async function swords(
         });
     }
   else if (req.method === 'PUT') {
-    
     const sword  = await swordsModel.updateOne({_id: req.body.id}, {
-        type: 'shortsword'
+       name: req.body.name,
+       type: req.body.type,
+       quality: req.body.quality,
+       material: req.body.material
     });
     
     if(!sword) {
@@ -42,12 +45,22 @@ export default async function swords(
       return; 
     }
 
-    res.status(200).json({message: 'Edited the ' +req.body.id}); 
+    res.status(200).json({message: 'Edited sword with id: ' +req.body.id}); 
 
     
     } else if (req.method === 'DELETE') {
-
-        res.status(200).json({message: 'Deleted the ' +req.body.id});
+      swordsModel.deleteOne({_id: req.body.id}, {}, function (err, doc) { // callback
+            if (err) {
+                console.log(err);
+                res.status(500).json({message:'Database Error'});
+            } else {
+                console.log('Sword Created');
+                res.status(200).json({message: 'Sword Deleted'});
+            }
+            return null;
+        });
+      
+      
 
 
     } else res.status(405).json({message: 'Unsupported request method'})

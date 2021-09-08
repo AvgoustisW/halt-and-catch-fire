@@ -35,11 +35,11 @@ const About = ({props}: any) => {
           id
         })
     })
-
+    refreshData();
     console.log(await response.json());
   }
 
-  const createRecord = async () => {
+  const createRecord = async (name, material, type, quality) => {
     const response = await fetch('/api/swords', {
       method: 'POST',
       headers: {
@@ -47,10 +47,10 @@ const About = ({props}: any) => {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: 'Sworder',
-        material: 'iron',
-        type: 'longsword',
-        quality : 'common'
+        name,
+        material,
+        type,
+        quality
       })
   })
   refreshData();
@@ -58,10 +58,10 @@ const About = ({props}: any) => {
   }
 
 
-  const editRecord = async (id) => {
+  const editRecord = async (id, name, material, type, quality) => {
     // setLoading(true);
     // setLoginStatus(0);
-
+    console.log(id);
     const response = await fetch('/api/swords', {
         method: 'PUT',
         headers: {
@@ -69,22 +69,15 @@ const About = ({props}: any) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          id
+          id,
+          name,
+          material,
+          type,
+          quality
         })
     })
     refreshData();
-
     console.log(await response.json());
-    // const res = await authResponse.status;
-    // if(res === 200){
-    //     setLoginStatus(0);
-    //     router.push('/')            
-    //     setLoading(false);
-    // } else {
-    //     setLoginStatus(1);
-    //     setLoading(false);
-    //     setPassword('');
-    // }
 }
 
 

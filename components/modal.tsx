@@ -12,7 +12,7 @@ import {
 
 import { useDisclosure } from "@chakra-ui/hooks"
   
-export function BasicModal({data}) {
+export function BasicIconModal({data}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
@@ -23,7 +23,7 @@ export function BasicModal({data}) {
                     icon={data.icon}
                     variant="outline"
                     fontSize="22px"
-                    onClick={onOpen}
+                    onClick={() => { data.initFunc(); onOpen()}}
         />
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -35,7 +35,7 @@ export function BasicModal({data}) {
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme="blue" onClick={data.funcToRun}>Done</Button>
+              <Button colorScheme="blue" onClick={() => {data.funcToRun(); onClose()}}>Done</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
