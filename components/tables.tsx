@@ -28,7 +28,7 @@ export function SimpleTable ({header: headers, rows}){
         <TableCaption>Imperial to metric conversion factors</TableCaption>
         <Thead>
         <Tr>               
-            {headers.map( h => <Th>{h}</Th>)}   
+            {headers.map( h => <Th key={h}>{h}</Th>)}   
         </Tr>
         </Thead>
         <Tbody>
@@ -133,7 +133,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
           <TableCaption placement="top">Famous Swords</TableCaption>
           <Thead>          
             <Tr>               
-                {headers.map( h => <Th>{h}</Th>)}   
+                {headers.map( h => <Th key={h}>{h}</Th>)}   
             </Tr>
             <Tr><Td><BasicIconModal data={{
             icon: <BiPlus/>,

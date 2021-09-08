@@ -8,7 +8,7 @@ import cookie from 'cookie';
 import { BiBody } from 'react-icons/bi';
 import { requiredChakraThemeKeys } from '@chakra-ui/theme';
 
-import { ObjectId } from 'mongoose';
+import { CallbackError, ObjectId } from 'mongoose';
 const secret = process.env.JWT_SECRET
 
 export default async function swords(
@@ -49,7 +49,7 @@ export default async function swords(
 
     
     } else if (req.method === 'DELETE') {
-      swordsModel.deleteOne({_id: req.body.id}, {}, function (err, doc) { // callback
+      swordsModel.findByIdAndDelete({_id: req.body.id}, {}, function (err, doc) { // callback
             if (err) {
                 console.log(err);
                 res.status(500).json({message:'Database Error'});
@@ -57,9 +57,9 @@ export default async function swords(
                 console.log('Sword Created');
                 res.status(200).json({message: 'Sword Deleted'});
             }
-            return null;
+            
+            return;
         });
-      
       
 
 
