@@ -50,7 +50,7 @@ const Login = (props: any) => {
 
     const formBackground = useColorModeValue("yellow.100", "gray.700");
     return (
-        <Layout>
+        <Box>
             <Flex height='100vh'  justifyContent='center'>
                 <Flex direction='column' alignItems="center" p={12} rounded={5}>
                     <Heading mb={6}>Sign in</Heading>
@@ -84,7 +84,7 @@ const Login = (props: any) => {
                     </form>
                 </Flex>
             </Flex>
-        </Layout>
+        </Box>
     )
 }
 

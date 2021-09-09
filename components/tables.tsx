@@ -20,6 +20,7 @@ import { BiTrash, BiEdit, BiPlus } from 'react-icons/bi';
 
 import { BasicIconModal } from '../components/modal';
 import {useState} from 'react';
+import shortid from 'shortid';
 
 export function SimpleTable ({header: headers, rows}){
   
@@ -34,7 +35,7 @@ export function SimpleTable ({header: headers, rows}){
         </Thead>
         <Tbody>
         {rows.map( row => 
-            <Tr key={row}>
+            <Tr key={shortid.generate()}>
                 { row.map(r => <Td key={r}>{r}</Td>)}
             </Tr>
         )}         
@@ -56,21 +57,12 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
 
     const { materials, types, qualities } =  selectionData();
 
-    const resetToOriginal = (
+    const resetAll = (
         () => {
         setName('');
         setMaterial('Steel');
         setType('Longsword');
         setQuality('Strong 50');
-        }
-    )
-
-    const resetAll = (
-        () => {
-        setName('');
-        setMaterial('');
-        setType('');
-        setQuality('');
         }
     )
 
@@ -83,7 +75,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
 
 
     const handleName = setValue => e => setValue(e.target.value)
-    const handleType = setValue => e => {setValue(e.target.value) }
+    const handleType = setValue => e => setValue(e.target.value)
     const handleQuality = setValue => e => setValue(e.target.value)
     const handleMaterial = setValue => e => setValue(e.target.value)
 
@@ -91,7 +83,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
      <FormControl mb={4} mt={4}>
         <FormLabel>Name</FormLabel>
         <Input 
-            placeholder="Slasher" 
+            placeholder="Excalibur" 
             variant="flushed" 
             mb={3} 
             type="text" 
@@ -102,20 +94,20 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
     </FormControl>
     <FormControl mb={4} mt={4}>
         <FormLabel>Material</FormLabel>
-        <Select variant ="flushed" onChange={handleMaterial(setMaterial)}>
-            {materials.map( mat => <option selected={mat === material} value={mat}>{mat}</option>)}
+        <Select value={material} variant ="flushed" onChange={handleMaterial(setMaterial)}>
+            {materials.map( mat => <option key={shortid.generate()} value={mat}>{mat}</option>)}
         </Select>
     </FormControl>
     <FormControl mb={4} mt={4}>
         <FormLabel>Type</FormLabel>
-        <Select  variant ="flushed" onChange={handleType(setType)}>
-            {types.map( tp => <option selected={tp === type} value={tp}>{tp}</option>)}
+        <Select value={type} variant ="flushed" onChange={handleType(setType)}>
+            {types.map( tp => <option key={shortid.generate()} value={tp}>{tp}</option>)}
         </Select>
     </FormControl>
     <FormControl mb={4} mt={4}>
         <FormLabel>Quality</FormLabel>
-        <Select  variant ="flushed" onChange={handleQuality(setQuality)}>
-            {qualities.map( q => <option selected={q === quality} value={q}>{q}</option>)}
+        <Select value={quality} variant ="flushed" onChange={handleQuality(setQuality)}>
+            {qualities.map( q => <option key={shortid.generate()} value={q}>{q}</option>)}
         </Select>
     </FormControl>
     
@@ -127,7 +119,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
           <TableCaption placement="top">Famous Swords</TableCaption>
           <Thead>          
             <Tr>               
-                {headers.map( h => <Th key={h}>{h}</Th>)}   
+                {headers.map( h => <Th key={shortid.generate()}>{h}</Th>)}   
             </Tr>
             <Tr><Td><BasicIconModal data={{
             icon: <BiPlus/>,
@@ -135,8 +127,8 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
             buttonVariant: 'outline',
             title: "Create new sword", 
             body: formBody,
-            initFunc: () => resetToOriginal(),
-            funcToRun: () => {  resetToOriginal(); createFunc(name, material, type, quality) }
+            initFunc: () => resetAll(),
+            funcToRun: () => {  resetAll(); createFunc(name, material, type, quality) }
          }}
         />
                 </Td></Tr>

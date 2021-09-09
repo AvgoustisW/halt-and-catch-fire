@@ -18,7 +18,7 @@ const Crud = ({props}: any) => {
   const router = useRouter();
 
   const refreshData = () => {
-    router.replace(router.asPath);
+    router.replace(router.asPath, undefined, {scroll: false});
   }
 
   const deleteRecord = async (id) => {

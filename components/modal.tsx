@@ -15,8 +15,6 @@ import { useEffect } from 'react';
 
 export function BasicIconModal({data}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
-
     return (
       <>        
         <IconButton 
