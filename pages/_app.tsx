@@ -20,10 +20,6 @@ const global = {
         margin: 0,
         fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
       },
-      "#nprogress .spinner-icon": {        
-          borderTopColor: 'black',
-          borderLeftColor: 'black'
-      },
       a: {
         color: "teal.500",
         textDecoration: 'none',

@@ -26,7 +26,7 @@ export function SimpleTable ({header: headers, rows}){
   
       return ( 
         <>
-        <Table variant="striped" colorScheme="red">
+        <Table variant="striped" colorScheme="teal.500">
         <TableCaption>Imperial to metric conversion factors</TableCaption>
         <Thead>
         <Tr>               
@@ -115,7 +115,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
     return ( 
         <>
          
-          <Table size="sm" variant="striped" colorScheme="green" >
+          <Table size="sm" variant="striped" colorScheme="teal" >
           <TableCaption placement="top">Famous Swords</TableCaption>
           <Thead>          
             <Tr>               
