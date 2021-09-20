@@ -117,7 +117,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
         <>
          
           <Table size="sm" variant="striped" colorScheme="teal" >
-          <TableCaption placement="top">Famous Swords</TableCaption>
+          <TableCaption fontSize="3xl" placement="top">Famous Blades</TableCaption>
           <Thead>          
             <Tr>               
                 {headers.map( h => <Th key={shortid.generate()}>{h}</Th>)}   
