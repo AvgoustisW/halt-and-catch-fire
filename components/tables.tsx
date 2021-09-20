@@ -12,7 +12,8 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Select
+    Select,
+    Tooltip
   } from "@chakra-ui/react"
 
 
@@ -80,7 +81,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
     const handleMaterial = setValue => e => setValue(e.target.value)
 
     const formBody = <> 
-     <FormControl mb={4} mt={4}>
+     <FormControl mb={4} mt={4} >
         <FormLabel>Name</FormLabel>
         <Input 
             placeholder="Excalibur" 
@@ -152,14 +153,16 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
                         funcToRun: () => {editFunc(row.id, name, material, type, quality) }
                     }}
                     />
-                    <IconButton 
-                    ml={5}
-                    aria-label="Delete" 
-                    icon={<BiTrash/>}
-                    variant="ghost"
-                    fontSize="22px"
-                    onClick={() => {deleteFunc(row.id)}}
-                    />  
+                     <Tooltip bg="red.500" label={'Delete'} fontSize="md" placement='right'>
+                        <IconButton 
+                        ml={5}
+                        aria-label="Delete" 
+                        icon={<BiTrash/>}
+                        variant="ghost"
+                        fontSize="22px"
+                        onClick={() => {deleteFunc(row.id)}}
+                        />  
+                    </Tooltip>
                 </Td>
                 
               </Tr>

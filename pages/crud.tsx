@@ -4,7 +4,7 @@ import Layout from '../components/layout'
 import requireAuthentication from '../components/hoc/requireAuthentication'
 
 import { EditableTable } from '../components/tables';
-import { Flex, Box, Text } from '@chakra-ui/react';
+import { Flex, Box, Text, Container } from '@chakra-ui/react';
 
 import dbConnect from '../lib/mongodb';
 import swords from '../models/swords';
@@ -105,10 +105,13 @@ const Crud = ({props}: any) => {
 
   return (
     <Layout>
-        <Flex mt={5} justifyContent="center">
+        <Flex mt={5} justifyContent ="center">
+          <Flex display="column">
           <Text fontSize="3xl">
             Simple CRUD Operations
           </Text>
+          <Text fontSize="lg">Upcoming features --- Sorting, Search Bar & more</Text>
+          </Flex>
         </Flex>
         <Box m={25} p={2} borderWidth="1px" borderRadius="lg">
         <EditableTable
@@ -119,7 +122,6 @@ const Crud = ({props}: any) => {
           createFunc={createRecord}
         />
         </Box>
-      
     </Layout>
   )  
 }
