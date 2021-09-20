@@ -16,52 +16,36 @@ export default async function swords(
   res: NextApiResponse
 ) {
   await dbConnect();
-
   if (req.method ==='POST') {
-    swordsModel.findOneAndUpdate({
-        name: req.body.name}, 
+    swordsModel.create( 
         req.body, 
-        {upsert: true, new: true, runValidators: true},
-        function (err, doc) { // callback
+        function (err: any, doc) { // callback
             if (err) {
-                console.log(err);
-                res.status(500).json({message:'Database Error'});
-            } else {
-                console.log('Sword Created');
-                res.status(200).json({message: 'Sword created'});
-            }
+                err.code===11000 ? res.status(409).json({message:'Duplicate Sword'}) : res.status(500).json({message:'Database Error'})
+              } else res.status(200).json({message: 'Sword created'});
         });
     }
   else if (req.method === 'PUT') {
-    const sword  = await swordsModel.updateOne({_id: req.body.id}, {
+    swordsModel.updateOne({_id: req.body.id}, {
        name: req.body.name,
        type: req.body.type,
        quality: req.body.quality,
        material: req.body.material
+    }, null, function (err: any, doc) {
+        if (err) {
+          err.code===11000 ? res.status(409).json({message:'Duplicate Sword'}) : res.status(500).json({message:'Database Error'})
+        } else res.status(200).json({message: 'Edited sword with id: ' +req.body.id});
+    })
+
+  } else if (req.method === 'DELETE') {
+    swordsModel.findByIdAndDelete({_id: req.body.id}, {}, function (err, doc) { // callback
+          if (err) {
+              res.status(500).json({message:'Database Error'});
+          } else {
+              res.status(200).json({message: 'Sword Deleted'});
+          }
+          
+          return;
     });
-    
-    if(!sword) {
-      res.status(500).json({message: 'Database Error'});
-      return; 
-    }
-
-    res.status(200).json({message: 'Edited sword with id: ' +req.body.id}); 
-
-    
-    } else if (req.method === 'DELETE') {
-      swordsModel.findByIdAndDelete({_id: req.body.id}, {}, function (err, doc) { // callback
-            if (err) {
-                console.log(err);
-                res.status(500).json({message:'Database Error'});
-            } else {
-                console.log('Sword Created');
-                res.status(200).json({message: 'Sword Deleted'});
-            }
-            
-            return;
-        });
-      
-
-
-    } else res.status(405).json({message: 'Unsupported request method'})
+  } else res.status(405).json({message: 'Unsupported request method'})
 }

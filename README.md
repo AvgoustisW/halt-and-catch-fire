@@ -9,21 +9,4 @@ Deployed @
 <br/>
 
 
- To run locally
-
-```bash
-npm install
-npm run dev
-```
-
----
-or build and run with
-
-```bash
-npm run build
-npm run start
-```
-
-and open [http://localhost:3000](http://localhost:3000) 
-
-
+Utilizing bcrypt, JWT and HttpOnly secure cookies for authentication

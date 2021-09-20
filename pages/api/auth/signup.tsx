@@ -13,12 +13,21 @@ export default async function signup(
   if (req.method === 'POST') {
     hash(req.body.password, 10, async function(err, hash) {
       await dbConnect();
-      const data = await user.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: hash
-      })
-      res.status(200).json({message: 'User created successfully'});
+      try {
+        const data = await user.create({
+          name: req.body.name,
+          email: req.body.email,
+          password: hash
+        })
+        res.status(200).json({message: 'User created successfully'});
+      } catch(error:any) {
+          if(error.code === 11000){
+            res.status(409).json({message: 'User already exists'});
+          } else {
+            res.status(500).json({message: 'Something went wrong with the service'});
+          }
+      } 
+      
     });  
   } else res.status(405).json({message: 'Unsupported request method'})
 }

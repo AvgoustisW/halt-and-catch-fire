@@ -6,6 +6,7 @@ import Layout from '../components/layout'
 import { useRouter } from 'next/router'
 import { BiHide, BiShow } from "react-icons/bi";
 import { useToast } from "@chakra-ui/react"
+import { toastError, toastSuccess } from '../tools/toasts';
 
 const Login = (props: any) => {
     const toast = useToast();
@@ -32,14 +33,7 @@ const Login = (props: any) => {
             router.push('/')            
             setLoading(false);
         } else {
-            toast({
-                title: "Unauthorized",
-                description: "Please enter correct credentials",
-                status: "error",
-                position: 'top',
-                duration: 3000,
-                isClosable: true,
-            })  
+            toast({...toastError, title: "Unauthorized", description: "Please enter correct credentials"})  
             //setLoginStatus(1);
             setLoading(false);
             setPassword('');
@@ -62,28 +56,19 @@ const Login = (props: any) => {
                 "password": password
             })
         })
-        const res = await authResponse.status;
-        if(res === 200){
+        
+
+        const res = await authResponse;
+        if(res.status === 200){
             setSignupStatus(0);
-            toast({
-                title: "User created",
-                description: "You can now sign in with your crendetials",
-                status: "success",
-                position: 'top',
-                duration: 3000,
-                isClosable: true,
-            })        
+            toast({...toastSuccess, title: "User created", description: "You can now sign in with your crendetials"});
             resetFields();
             setLoading(false);
         } else {
-            toast({
-                title: "Error",
-                description: "Something went wrong with our service",
-                status: "error",
-                position: 'top',
-                duration: 3000,
-                isClosable: true,
-            })   
+            let description = '';
+            if(res.status === 409) description = 'User already exists'
+            else description = 'Our service is currently not working';
+            toast({...toastError, title:'Error', description})
             setSignupStatus(1);
             setLoading(false);
             // setPassword('');
@@ -148,7 +133,6 @@ const Login = (props: any) => {
                             </InputGroup>
                             <Button type="submit" variant="outline" mb={6} onClick={signup}>Register</Button>
                             {loading && <Spinner/>}
-                            <Box h={8}>{signupStatus ? 'Error': ''}</Box>
                         </form>
                     </TabPanel>
                     <TabPanel>
