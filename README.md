@@ -1,6 +1,6 @@
 
 
-## `Simple CRUD app made with NextJS, MongoDB, Vercel and ChakraUI`
+## Simple CRUD app made with NextJS, MongoDB, Vercel and ChakraUI
 
 
 Deployed @
