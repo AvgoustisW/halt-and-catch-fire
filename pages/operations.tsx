@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { useToast} from '@chakra-ui/toast';
 import { toastError, toastSuccess, toastWarning } from '../tools/toasts';
 /*----------------------------------------------------------------*/
-const Crud = ({props}: any) => {
+const Operations = ({props}: any) => {
   
   const toast = useToast();
 
@@ -108,9 +108,9 @@ const Crud = ({props}: any) => {
         <Flex mt={5} justifyContent ="center">
           <Flex display="column">
           <Text fontSize="3xl">
-            Simple CRUD Operations
+            CRUD Operations
           </Text>
-          <Text fontSize="lg">Upcoming features --- Sorting, Search Bar & more</Text>
+          <Text fontSize="lg">Upcoming features --- Validations, Sorting, Search Bar & more</Text>
           </Flex>
         </Flex>
         <Box m={25} p={2} borderWidth="1px" borderRadius="lg">
@@ -126,7 +126,7 @@ const Crud = ({props}: any) => {
   )  
 }
 
-export default Crud
+export default Operations
 
 
 export const getServerSideProps: GetServerSideProps = requireAuthentication (async (context) => {

@@ -6,7 +6,7 @@ import dbConnect from '../lib/mongodb';
 import Layout from '../components/layout'
 import requireAuthentication from '../components/hoc/requireAuthentication';
 
-import { Text, Heading, Container, Button, Flex } from '@chakra-ui/react';
+import { Text, Heading, Container, Link, Flex } from '@chakra-ui/react';
 
 const Home = (props: any) => {
 
@@ -16,10 +16,10 @@ const Home = (props: any) => {
       <Container> 
         <Flex alignItems="center" justifyContent="center">  
           <Flex direction="column">
-            <Heading my={20}> Welcome </Heading>
-            <Text fontSize="3xl">You are currently residing in the Home page. To play around please visit the operations page</Text>
+            <Heading mt={20} mb={10}> Welcome </Heading>
+            <Text fontSize="3xl">You are currently residing in the Home page. To play around please visit the <a style={{cursor: 'pointer'}} onClick={() => router.push('/operations')}>operations</a> page</Text>
           </Flex>
-        </Flex>
+        </Flex> 
       </Container>
     </Layout>
   )

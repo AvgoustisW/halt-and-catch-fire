@@ -50,7 +50,7 @@ export default function Layout ({children}) {
                     icon={<GiCrossedSwords/> }  
                     variant="outline"
                     fontSize="25px"
-                    onClick={() => router.push('/crud')}
+                    onClick={() => router.push('/operations')}
                 />  
               </Tooltip>
             </HStack>
