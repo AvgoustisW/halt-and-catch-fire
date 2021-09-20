@@ -4,7 +4,7 @@ import Layout from '../components/layout'
 import requireAuthentication from '../components/hoc/requireAuthentication'
 
 import { EditableTable } from '../components/tables';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Box, Text } from '@chakra-ui/react';
 
 import dbConnect from '../lib/mongodb';
 import swords from '../models/swords';
@@ -12,7 +12,7 @@ import swords from '../models/swords';
 import {fixUnserialized} from '../tools/general';
 import { useRouter } from 'next/router';
 import { useToast} from '@chakra-ui/toast';
-import { toastError, toastSuccess } from '../tools/toasts';
+import { toastError, toastSuccess, toastWarning } from '../tools/toasts';
 /*----------------------------------------------------------------*/
 const Crud = ({props}: any) => {
   
@@ -41,7 +41,7 @@ const Crud = ({props}: any) => {
     })
     const res = await response.status;
     if(res === 200) {
-      toast({...toastSuccess, description:'Sword Deleted!'})
+      toast({...toastWarning, description:'Sword Deleted!'})
     } else {
       toast({...toastError, description: 'Database Error!'})  
     }
@@ -105,19 +105,20 @@ const Crud = ({props}: any) => {
 
   return (
     <Layout>
-     
-        <EditableTable 
+        <Flex mt={5} justifyContent="center">
+          <Text fontSize="3xl">
+            Simple CRUD Operations
+          </Text>
+        </Flex>
+        <Box m={25} p={2} borderWidth="1px" borderRadius="lg">
+        <EditableTable
           headers={headers} 
           rows={rows}
           editFunc={editRecord}
           deleteFunc={deleteRecord}
           createFunc={createRecord}
         />
-          <Link href="/">
-                <a>
-                  <h2>Home &rarr;</h2>
-                </a>     
-          </Link>  
+        </Box>
       
     </Layout>
   )  

@@ -3,7 +3,7 @@ import { UseToastOptions } from '@chakra-ui/toast';
 
 const common = {
     position: 'top',
-    duration: 3000,
+    duration: 2400,
     isClosable: true,
 }
 
@@ -15,4 +15,9 @@ export const toastSuccess = {
 export const toastError = {
     ...common,
     status:"error"
+} as UseToastOptions
+
+export const toastWarning = {
+    ...common,
+    status: "warning"
 } as UseToastOptions

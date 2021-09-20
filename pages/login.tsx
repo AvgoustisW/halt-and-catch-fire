@@ -2,11 +2,12 @@ import type { GetServerSideProps } from 'next'
 import { useState } from 'react';
 import { Box, Tabs, Tab, TabList, TabPanels, TabPanel, Spinner, Flex, Heading, Input, Button, useColorModeValue , InputGroup, InputRightElement, Icon, FormControl, FormLabel, FormHelperText } from '@chakra-ui/react';
 /*----------------------------------------------------------------*/
-import Layout from '../components/layout'
+
 import { useRouter } from 'next/router'
 import { BiHide, BiShow } from "react-icons/bi";
 import { useToast } from "@chakra-ui/react"
 import { toastError, toastSuccess } from '../tools/toasts';
+import Header from '../components/header';
 
 const Login = (props: any) => {
     const toast = useToast();
@@ -96,6 +97,8 @@ const Login = (props: any) => {
     }
 
     return (
+        <>
+        <Header/>
         <Box>
             <Flex height='100vh'  justifyContent='center'>
                 <Flex direction='column' alignItems="center" p={12} rounded={5} >
@@ -172,6 +175,7 @@ const Login = (props: any) => {
                 </Flex>
             </Flex>
         </Box>
+        </>
     )
 }
 

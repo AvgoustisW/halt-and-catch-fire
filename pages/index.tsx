@@ -1,16 +1,12 @@
 import type {GetServerSideProps} from 'next'
-import Link from 'next/link'
-import Head from 'next/head'
-import Image from 'next/image'
 /*----------------------------------------------------------------*/
 import { useRouter } from 'next/router';
-import { logout } from '../services/authorization';
 import dbConnect from '../lib/mongodb';
 
 import Layout from '../components/layout'
 import requireAuthentication from '../components/hoc/requireAuthentication';
 
-import { Box, Heading, Container, Button, Flex } from '@chakra-ui/react';
+import { Text, Heading, Container, Button, Flex } from '@chakra-ui/react';
 
 const Home = (props: any) => {
 
@@ -21,10 +17,7 @@ const Home = (props: any) => {
         <Flex alignItems="center" justifyContent="center">  
           <Flex direction="column">
             <Heading my={20}> Welcome </Heading>
-            <Link href="/crud">Crud Operations &rarr;</Link>
-            <Button onClick={e => logout(e, router)}>
-              Logout
-            </Button>   
+            <Text fontSize="3xl">You are currently residing in the Home page. To play around please visit the operations page</Text>
           </Flex>
         </Flex>
       </Container>
