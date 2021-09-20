@@ -1,13 +1,20 @@
 
 import { Box, Text } from "@chakra-ui/react"
 
+import { useEffect } from "react";
 export default function Footer() {
 
   let userHasScrolled = false;
-  window.onscroll = function (e)
-  {
-      userHasScrolled = true;
-  }
+
+
+  useEffect( () => {
+
+    window.onscroll = function (e)
+    {
+        userHasScrolled = true;
+    }
+
+  })
 
   return (
    <footer>
