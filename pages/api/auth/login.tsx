@@ -34,6 +34,7 @@ export default async function login(
           path: '/',
 
         })),
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(200).json({user: {name: user.name } , message: 'Logged in Successfully'}); 
       } else res.status(401).json({message: 'Incorrect Credentials'});
      
