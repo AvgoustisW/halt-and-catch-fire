@@ -165,7 +165,7 @@ const Login = (props: any) => {
                 <TabList>
                     <Tab onClick={resetFields}>Sign Up</Tab>
                     <Tab onClick={resetFields}>Sign In</Tab>
-                    <Tab onClick={resetFields}>Pleo</Tab>
+                    {/* <Tab onClick={resetFields}>Pleo</Tab> */}
                 </TabList>
                 <TabPanels>
                     <TabPanel>
@@ -174,9 +174,9 @@ const Login = (props: any) => {
                     <TabPanel>
                         {credentials(login, 'Log in')}
                     </TabPanel>
-                    <TabPanel>
+                    {/* <TabPanel>
                         {credentials(signupPleo, 'Pleo Create')}
-                    </TabPanel>
+                    </TabPanel> */}
                 </TabPanels>
                 </Tabs>
 
