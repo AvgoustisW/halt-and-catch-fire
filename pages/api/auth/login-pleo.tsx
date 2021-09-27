@@ -22,6 +22,9 @@ export default async function login(
     }
     console.log('user', user);
 
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     compare(req.body.password, user.password, function(err, result) {
       if(!err && result) {
         const c = {sub: user._id, name: user.name};
