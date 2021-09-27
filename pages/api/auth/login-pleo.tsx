@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../lib/mongodb';
 import { compare } from 'bcrypt';
-import userModel from '../../../models/user';
+import userModel from '../../../models/user-pleo-space';
 import { sign } from 'jsonwebtoken';
 import cookie from 'cookie';
 
@@ -13,7 +13,7 @@ export default async function login(
   res: NextApiResponse
 ) {
 
-  if (req.method === 'POST') {
+  if (req.method === 'POST') {  
     await dbConnect();
     const user  = await userModel.findOne({name: new RegExp('^'+req.body.name+'$', "i")});
     if(!user) {

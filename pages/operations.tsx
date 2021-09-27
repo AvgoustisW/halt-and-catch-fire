@@ -4,7 +4,7 @@ import Layout from '../components/layout'
 import requireAuthentication from '../components/hoc/requireAuthentication'
 
 import { EditableTable } from '../components/tables';
-import { Flex, Box, Text, Container } from '@chakra-ui/react';
+import { Flex, Box, Text, Spinner } from '@chakra-ui/react';
 
 import dbConnect from '../lib/mongodb';
 import swords from '../models/swords';
@@ -113,13 +113,14 @@ const Operations = ({props}: any) => {
           <Text fontSize="lg">Upcoming features --- Validations, Sorting, Search Bar & more</Text>
           </Flex>
         </Flex>
-        <Box m={25} p={2} borderWidth="1px" borderRadius="lg">
+        <Box m={25} p={2} borderWidth="1px" borderRadius="lg">          
         <EditableTable
           headers={headers} 
           rows={rows}
           editFunc={editRecord}
           deleteFunc={deleteRecord}
           createFunc={createRecord}
+          loading={false}
         />
         </Box>
     </Layout>

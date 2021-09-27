@@ -14,7 +14,6 @@ const Login = (props: any) => {
 
     const login = async (e) => {
         setLoading(true);
-        setLoginStatus(0);
         e.preventDefault();
 
         const authResponse = await fetch('/api/auth/login', {
@@ -28,9 +27,9 @@ const Login = (props: any) => {
                 "password": password
             })
         })
-        const res = await authResponse.status;
-        if(res === 200){
-            setLoginStatus(0);
+        const res = await authResponse;
+        console.log('---', await res.json());
+        if(res.status === 200){
             router.push('/')            
             setLoading(false);
         } else {
@@ -40,6 +39,40 @@ const Login = (props: any) => {
             setPassword('');
         }
     }
+
+    const signupPleo = async (e) => {
+        setLoading(true);
+       // setLoginStatus(0);
+       e.preventDefault();
+
+       const authResponse = await fetch('/api/auth/signup-pleo', {
+           method: 'POST',
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+           },
+           body: JSON.stringify({
+               "name": username,   
+               "password": password,
+               "favorites" : localStorage.getItem('favorites')
+           })
+       })
+       
+
+       const res = await authResponse;
+       if(res.status === 200){
+           toast({...toastSuccess, title: "Pleo User created", description: "You can now sign in with your credentials"});
+           resetFields();
+           setLoading(false);
+       } else {
+           let description = '';
+           if(res.status === 409) description = 'User already exists'
+           else description = 'Our service is currently not working';
+           toast({...toastError, title:'Error', description})
+           setLoading(false);
+           // setPassword('');
+       }
+   }
 
     const signup = async (e) => {
          setLoading(true);
@@ -61,8 +94,7 @@ const Login = (props: any) => {
 
         const res = await authResponse;
         if(res.status === 200){
-            setSignupStatus(0);
-            toast({...toastSuccess, title: "User created", description: "You can now sign in with your crendetials"});
+            toast({...toastSuccess, title: "User created", description: "You can now sign in with your credentials"});
             resetFields();
             setLoading(false);
         } else {
@@ -70,14 +102,10 @@ const Login = (props: any) => {
             if(res.status === 409) description = 'User already exists'
             else description = 'Our service is currently not working';
             toast({...toastError, title:'Error', description})
-            setSignupStatus(1);
             setLoading(false);
             // setPassword('');
         }
     }
-
-    const [loginStatus, setLoginStatus ] = useState(0);
-    const [signupStatus, setSignupStatus ] = useState(0);
     const [username, setUsername] = useState('')
     const [loading, setLoading] = useState(false);
     const [password, setPassword] = useState('')
@@ -88,14 +116,44 @@ const Login = (props: any) => {
     const handleUsername = setValue => e => setValue(e.target.value)
     const handlePassword = setValue => e => setValue(e.target.value)
     const handleShowPassword= () => setShowPassword(!showPassword)
-
-    const formBackground = useColorModeValue("yellow.100", "gray.700");
-
     const resetFields = () => {
         setUsername('');
         setPassword('');
     }
 
+    const credentials = (funcToRun, displayText) => {
+        return (
+            <form onSubmit={funcToRun} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <Input 
+                    placeholder="username" 
+                    variant="flushed" 
+                    mb={3} 
+                    type="text" 
+                    value={username}
+                    onChange={handlePassword(setUsername)}
+                    isRequired={true}
+                />
+                <InputGroup>
+                    <Input 
+                        placeholder="password" 
+                        variant="flushed" 
+                        mb={6} 
+                        type={showPassword ? "text" : "password"} 
+                        value={password}
+                        onChange={handleUsername(setPassword)}
+                        isRequired={true}
+                    />
+                    <InputRightElement width="1rem" onClick={handleShowPassword} style={{cursor: 'pointer'}}>
+                        <Icon as={showPassword ? BiShow : BiHide} w={5} h={5}/>
+                    </InputRightElement>
+                </InputGroup>
+                <Button type="submit" variant="outline" mb={6} onClick={funcToRun}>{displayText}</Button>
+                {loading && <Spinner/>}
+            </form>
+        )
+    }
+
+    
     return (
         <>
         <Header/>
@@ -107,66 +165,17 @@ const Login = (props: any) => {
                 <TabList>
                     <Tab onClick={resetFields}>Sign Up</Tab>
                     <Tab onClick={resetFields}>Sign In</Tab>
+                    <Tab onClick={resetFields}>Pleo</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <form onSubmit={signup} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <Input 
-                                placeholder="username" 
-                                variant="flushed" 
-                                mb={3} 
-                                type="text" 
-                                value={username}
-                                onChange={handlePassword(setUsername)}
-                                isRequired={true}
-                            />
-                            <InputGroup>
-                                <Input 
-                                    placeholder="password" 
-                                    variant="flushed" 
-                                    mb={6} 
-                                    type={showPassword ? "text" : "password"} 
-                                    value={password}
-                                    onChange={handleUsername(setPassword)}
-                                    isRequired={true}
-                                />
-                                <InputRightElement width="1rem" onClick={handleShowPassword} style={{cursor: 'pointer'}}>
-                                    <Icon as={showPassword ? BiShow : BiHide} w={5} h={5}/>
-                                </InputRightElement>
-                            </InputGroup>
-                            <Button type="submit" variant="outline" mb={6} onClick={signup}>Register</Button>
-                            {loading && <Spinner/>}
-                        </form>
+                        {credentials(signup, 'Register')}
+                    </TabPanel>                    
+                    <TabPanel>
+                        {credentials(login, 'Log in')}
                     </TabPanel>
                     <TabPanel>
-                        <form onSubmit={login} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <Input 
-                                placeholder="username" 
-                                variant="flushed" 
-                                mb={3} 
-                                type="text" 
-                                value={username}
-                                onChange={handlePassword(setUsername)}
-                                isRequired={true}
-                            />
-                            <InputGroup>
-                                <Input 
-                                    placeholder="password" 
-                                    variant="flushed" 
-                                    mb={6} 
-                                    type={showPassword ? "text" : "password"} 
-                                    value={password}
-                                    onChange={handleUsername(setPassword)}
-                                    isRequired={true}
-                                />
-                                <InputRightElement width="1rem" onClick={handleShowPassword} style={{cursor: 'pointer'}}>
-                                    <Icon as={showPassword ? BiShow : BiHide} w={5} h={5}/>
-                                </InputRightElement>
-                            </InputGroup>
-                            <Button type="submit" variant="outline" mb={6} onClick={login}>Log In</Button>
-                            {loading && <Spinner/>}
-                            <Box h={8}>{loginStatus ? 'Unauthorized': ''}</Box>
-                        </form>
+                        {credentials(signupPleo, 'Pleo Create')}
                     </TabPanel>
                 </TabPanels>
                 </Tabs>

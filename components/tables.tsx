@@ -13,7 +13,9 @@ import {
     FormLabel,
     Input,
     Select,
-    Tooltip
+    Tooltip,
+    Box,
+    Spinner,
   } from "@chakra-ui/react"
 
 
@@ -49,7 +51,7 @@ export function SimpleTable ({header: headers, rows}){
     )
 }
 
-export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}){
+export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc, loading}){
   
     const [name, setName] = useState('')
     const [material, setMaterial] = useState('')
@@ -115,7 +117,7 @@ export function EditableTable ({headers, rows, createFunc, editFunc, deleteFunc}
 </>
     return ( 
         <>
-         
+          
           <Table size="sm" variant="striped" colorScheme="teal" >
           <TableCaption fontSize="3xl" placement="top">Famous Blades</TableCaption>
           <Thead>          

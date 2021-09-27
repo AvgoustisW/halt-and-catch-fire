@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MoviesSchema = new mongoose.Schema({
+const UsersSchema = new mongoose.Schema({
     name:{
         type:String
     }, 
@@ -14,4 +14,4 @@ const MoviesSchema = new mongoose.Schema({
   }, {collection: 'users'});
 
 
-  export default mongoose.models.Users || mongoose.model('Users', MoviesSchema);
+  export default mongoose.models.Users || mongoose.model('Users', UsersSchema);
