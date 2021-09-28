@@ -37,6 +37,7 @@ export default async function signup(
   await runMiddleware(req, res, cors)
   
   if (req.method === 'POST') {
+    
     if(req.body.username.toLowerCase() === 'guest') { 
       res.status(409).json({message: 'You are the guest already - Easter Egg found!'})
     } else  {
