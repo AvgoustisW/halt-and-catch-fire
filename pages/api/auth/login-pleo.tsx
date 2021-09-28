@@ -29,7 +29,6 @@ const cors = Cors({
   methods: ['POST'],
   origin: whitelist,
   credentials: true,
-
 })
 
 export default async function login(
@@ -41,7 +40,7 @@ export default async function login(
 
   if (req.method === 'POST') {  
     await dbConnect();
-    const user  = await userModel.findOne({name: new RegExp('^'+req.body.name+'$', "i")});
+    const user  = await userModel.findOne({name: new RegExp('^'+req.body.username+'$', "i")});
     if(!user) {
       res.status(401).json({message: 'Incorrect Credentials'});
       return; 
