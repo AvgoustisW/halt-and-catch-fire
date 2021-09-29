@@ -39,14 +39,14 @@ export default async function signup(
   if (req.method === 'POST') {
     
     if(req.body.username.toLowerCase() === 'guest') { 
-      res.status(409).json({message: 'You are the guest already - Easter Egg found!'})
+      res.status(409).json({message: 'You are a guest already - Easter Egg found!'})
     } else  {
         hash(req.body.password, 10, async function(err, hash) {
           await dbConnect();
           try {
             const data = await user.create({
               name: req.body.username,
-              favorites: JSON.parse(req.body.favorites),
+              favorites: {launches: {}, pads:{}},
               password: hash
             })
             res.status(200).json({message: 'User created successfully'});
