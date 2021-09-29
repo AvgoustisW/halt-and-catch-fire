@@ -37,7 +37,7 @@ export default async function login(
 ) {
 
   await runMiddleware(req, res, cors)
-
+  console.log('HEADERS', req.headers);
   if (req.method === 'POST') {  
     await dbConnect();
     const user  = await userModel.findOne({name: new RegExp('^'+req.body.username+'$', "i")});
@@ -56,7 +56,7 @@ export default async function login(
           //secure: process.env.NODE_ENV !== "development",
           maxAge: 60*60*1000,
           expires: new Date().setHours( new Date().getTime() + 60*60*1000),
-          path: '/',
+          path: `${req.headers.origin}/`,
 
         })),
         res.status(200).json({user: {name: user.name, favorites: user.favorites} , message: 'Logged in Successfully'}); 
