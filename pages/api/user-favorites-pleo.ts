@@ -35,15 +35,15 @@ export default async function userFavoritesPleo(
   await dbConnect();
 
   if (req.method ==='GET') {
-    console.log(req.query.username);
    user.findOne({name: req.query.username}, {}, null, function (err: any, doc) {
-     console.log(doc.favorites);
+     console.log(doc);
         if (err) {
           res.status(500).json({message:'Database Error'})
         } else res.status(200).json({favorites: doc.favorites, message: 'Favorites fetched' });
     })
   }
   else if (req.method === 'PUT') {
+    console.log('hehe',req.body);
     user.updateOne({name: req.body.username}, {
       favorites: req.body.favorites
     }, null, function (err: any, doc) {

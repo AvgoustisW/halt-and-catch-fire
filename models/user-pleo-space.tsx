@@ -5,13 +5,14 @@ const UsersPleoSpaceSchema = new mongoose.Schema({
         type:String
     }, 
     favorites : {
-        type: Object
+        type: Object, 
+        default: {launches: {}, pads: {}}     
     },
     password : {
         type: String
     }
   
-  }, {collection: 'usersPleoChallenge'});
+  }, {collection: 'usersPleoChallenge', minimize: false});
 
 
   export default mongoose.models.usersPleoChallenge || mongoose.model('usersPleoChallenge', UsersPleoSpaceSchema);

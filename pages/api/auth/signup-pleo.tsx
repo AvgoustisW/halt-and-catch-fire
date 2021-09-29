@@ -44,9 +44,9 @@ export default async function signup(
         hash(req.body.password, 10, async function(err, hash) {
           await dbConnect();
           try {
-            const data = await user.create({
+            await user.create({
               name: req.body.username,
-              favorites: {launches: {}, pads:{}},
+              favorites: {launches:{}, pads:{}},
               password: hash
             })
             res.status(200).json({message: 'User created successfully'});
