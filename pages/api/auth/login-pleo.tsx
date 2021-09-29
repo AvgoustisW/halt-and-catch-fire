@@ -57,6 +57,7 @@ export default async function login(
           maxAge: 60*60*1000,
           expires: new Date().setHours( new Date().getTime() + 60*60*1000),
           path: `${req.headers.origin}/`,
+          domain: whitelist[0]
 
         })),
         res.status(200).json({user: {name: user.name, favorites: user.favorites} , message: 'Logged in Successfully'}); 
