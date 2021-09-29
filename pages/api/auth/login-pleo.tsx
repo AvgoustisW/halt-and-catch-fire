@@ -51,14 +51,14 @@ export default async function login(
       if(!err && result) {
         const c = {sub: user._id, name: user.name};
         const jwt = sign(c, secret, {expiresIn: '1h'})
-        res.setHeader("Set-Cookie", cookie.serialize("authToken", jwt, {
-          //httpOnly: true,
-          //secure: process.env.NODE_ENV !== "development",
-          maxAge: 60*60*1000,
-          expires: new Date().setHours( new Date().getTime() + 60*60*1000),
-          path: `${req.headers.origin}/`,
+        // res.setHeader("Set-Cookie", cookie.serialize("authToken", jwt, {
+        //   //httpOnly: true,
+        //   //secure: process.env.NODE_ENV !== "development",
+        //   maxAge: 60*60*1000,
+        //   expires: new Date().setHours( new Date().getTime() + 60*60*1000),
+        //   path: `${req.headers.origin}/`,
 
-        })),
+        // })),
         res.status(200).json({user: {name: user.name, favorites: user.favorites, authToken: jwt} , message: 'Logged in Successfully'}); 
       } else res.status(401).json({message: 'Incorrect Credentials'});
      
