@@ -59,7 +59,7 @@ export default async function login(
           path: '/',
 
         })),
-        res.status(200).json({user: {name: user.name } , message: 'Logged in Successfully'}); 
+        res.status(200).json({user: {name: user.name, favorites: user.favorites} , message: 'Logged in Successfully'}); 
       } else res.status(401).json({message: 'Incorrect Credentials'});
      
     });
