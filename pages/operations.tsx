@@ -39,6 +39,7 @@ const Operations = ({props}: any) => {
           id
         })
     })
+     
     const res = await response.status;
     if(res === 200) {
       toast({...toastWarning, description:'Sword Deleted!'})
@@ -105,16 +106,17 @@ const Operations = ({props}: any) => {
 
   return (
     <Layout>
-        <Flex mt={5} justifyContent ="center">
+        <Flex mt={5} align='center' direction='column'  >
           <Flex display="column">
           <Text fontSize="3xl">
             CRUD Operations
           </Text>
-          <Text fontSize="lg">Upcoming features --- Validations, Sorting, Search Bar & more</Text>
+          <Text fontSize="lg"></Text>
           </Flex>
         </Flex>
-        <Box m={25} p={2} borderWidth="1px" borderRadius="lg">          
+        <Box m={25} p={2} maxWidth={1300} borderWidth="1px" borderRadius="lg">          
         <EditableTable
+          
           headers={headers} 
           rows={rows}
           editFunc={editRecord}
@@ -123,6 +125,7 @@ const Operations = ({props}: any) => {
           loading={false}
         />
         </Box>
+       
     </Layout>
   )  
 }
