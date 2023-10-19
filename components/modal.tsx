@@ -29,6 +29,7 @@ export function BasicIconModal({ data }) {
           aria-label={data.iconLabel}
           icon={data.icon}
           variant={data.buttonVariant}
+          colorScheme={data.colorScheme}
           fontSize="22px"
           onClick={() => {
             data.initFunc();

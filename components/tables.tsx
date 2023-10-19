@@ -153,8 +153,8 @@ export function EditableTable({
               data={{
                 icon: <BiPlus />,
                 iconLabel: "Create",
-                buttonVariant: "outline",
                 title: "Create new sword",
+                colorScheme: "orange",
                 body: formBody,
                 initFunc: () => resetAll(),
                 funcToRun: () => {
@@ -188,6 +188,7 @@ export function EditableTable({
                       iconLabel: "Edit",
                       title: "Edit sword",
                       body: formBody,
+                      colorScheme: "teal",
                       initFunc: () =>
                         setEditingSword(
                           row.name,
@@ -212,6 +213,7 @@ export function EditableTable({
                       icon={<BiTrash />}
                       variant="ghost"
                       fontSize="22px"
+                      colorScheme="red"
                       onClick={() => {
                         deleteFunc(row.id);
                       }}
