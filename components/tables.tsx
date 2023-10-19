@@ -171,9 +171,6 @@ export function EditableTable({
               <Th key={shortid.generate()}>{h}</Th>
             ))}
           </Tr>
-          <Tr>
-            <Td></Td>
-          </Tr>
         </Thead>
         <Tbody>
           {rows.map((row) => {
